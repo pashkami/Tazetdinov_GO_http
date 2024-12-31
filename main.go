@@ -104,7 +104,7 @@ func analyzeStats(stats []float64) {
 	if totalMemory > 0 {
 		memoryUsage := usedMemory / totalMemory
 		if memoryUsage > memoryUsageLimit {
-			fmt.Printf("Memory usage too high: %d\n", int(memoryUsage*100))
+			fmt.Printf("Memory usage too high: %d%%\n", int(memoryUsage*100))
 		}
 	}
 
