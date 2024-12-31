@@ -39,8 +39,6 @@ const (
 	networkUsageLimit = 0.9 // 90%
 )
 
-
-
 func fetchAndAnalyzeStats() error {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
@@ -99,14 +97,14 @@ func analyzeStats(stats []float64) {
 
 	// Проверка Load Average
 	if loadAverage > loadAverageLimit {
-		fmt.Printf("Load Average is too high: %.2f\n", loadAverage)
+		fmt.Printf("Load Average is too high: %d\n", int64(loadAverage))
 	}
 
 	// Проверка использования памяти
 	if totalMemory > 0 {
 		memoryUsage := usedMemory / totalMemory
 		if memoryUsage > memoryUsageLimit {
-			fmt.Printf("Memory usage too high: %.2f%%\n", memoryUsage*100)
+			fmt.Printf("Memory usage too high: %d%%\n", int64(memoryUsage))
 		}
 	}
 
@@ -114,7 +112,7 @@ func analyzeStats(stats []float64) {
 	if totalDisk > 0 {
 		freeDiskSpace := totalDisk - usedDisk
 		if freeDiskSpace/totalDisk < (1 - diskSpaceLimit) {
-			fmt.Printf("Free disk space is too low: %.2f Mb left\n", freeDiskSpace/1024/1024)
+			fmt.Printf("Free disk space is too low: %d Mb left\n", int64(freeDiskSpace/1024/1024))
 		}
 	}
 
@@ -122,7 +120,7 @@ func analyzeStats(stats []float64) {
 	if totalNetwork > 0 {
 		freeNetwork := (totalNetwork - usedNetwork) * 8 / 1e6 // В мегабитах
 		if usedNetwork/totalNetwork > networkUsageLimit {
-			fmt.Printf("Network bandwidth usage high: %.2f Mbit/s available\n", freeNetwork)
+			fmt.Printf("Network bandwidth usage high: %d Mbit/s available\n", int64(freeNetwork))
 		}
 	}
 }
