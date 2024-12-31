@@ -9,16 +9,6 @@ import (
 	"time"
 )
 
-const (
-	serverURL         = "http://srv.msk01.gigacorp.local/_stats"
-	requestInterval   = 10 * time.Second // Интервал запросов
-	maxErrorCount     = 3
-	loadAverageLimit  = 30
-	memoryUsageLimit  = 0.8 // 80%
-	diskSpaceLimit    = 0.9 // 90%
-	networkUsageLimit = 0.9 // 90%
-)
-
 func main() {
 	errorCount := 0
 	ticker := time.NewTicker(requestInterval)
@@ -38,6 +28,18 @@ func main() {
 		}
 	}
 }
+
+const (
+	serverURL         = "http://srv.msk01.gigacorp.local/_stats"
+	requestInterval   = 10 * time.Second // Интервал запросов
+	maxErrorCount     = 3
+	loadAverageLimit  = 30
+	memoryUsageLimit  = 0.8 // 80%
+	diskSpaceLimit    = 0.9 // 90%
+	networkUsageLimit = 0.9 // 90%
+)
+
+
 
 func fetchAndAnalyzeStats() error {
 	client := &http.Client{
