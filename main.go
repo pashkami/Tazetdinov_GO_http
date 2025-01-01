@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
-	"math"
 )
 
 func main() {
@@ -119,10 +119,9 @@ func analyzeStats(stats []float64) {
 
 	// Проверка использования сети
 	if totalNetwork > 0 {
-		freeNetwork := math.Round((totalNetwork - usedNetwork) * 8 / 1e6)
+		freeNetwork := math.Round((totalNetwork*8 /1e7) - (usedNetwork*8 /1e7))
 		if usedNetwork/totalNetwork > networkUsageLimit {
-			fmt.Printf("DEBUG: totalNetwork = %.2f, usedNetwork = %.2f, freeNetwork = %.2f\n, freeNetwork_2 = %.2f\n",
-    totalNetwork, usedNetwork, freeNetwork,(totalNetwork-usedNetwork)*8/1e6)
+			fmt.Printf("Network bandwidth usage high: %d Mbit/s available", int64(freeNetwork))
 		}
 	}
 }
