@@ -108,10 +108,6 @@ func analyzeStats(stats []float64) {
 		}
 	}
 	
-	if freeDiskSpace < totalDisk*(1-diskSpaceLimit) {
-		fmt.Printf("Free disk space is too low: %d Mb left\n", int(freeDiskSpace/1024/1024))
-	}
-	
 	// Проверка свободного места на диске
 	if totalDisk > 0 {
 		freeDiskSpace := (totalDisk - usedDisk) / 1024 / 1024 // Преобразование в МБ
