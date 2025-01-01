@@ -120,7 +120,7 @@ func analyzeStats(stats []float64) {
 	if totalNetwork > 0 {
 		freeNetwork := totalNetwork - usedNetwork
 		if usedNetwork/totalNetwork > networkUsageLimit {
-			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", (freeNetwork)/1_000_000)
+			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", math.Floor((freeNetwork)/1_000_000))
 		}
 	}
 }
