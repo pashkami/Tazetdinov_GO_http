@@ -107,12 +107,16 @@ func analyzeStats(stats []float64) {
 			fmt.Printf("Memory usage too high: %d%%\n", int(memoryUsage*100))
 		}
 	}
-
+	
+	if freeDiskSpace < totalDisk*(1-diskSpaceLimit) {
+		fmt.Printf("Free disk space is too low: %d Mb left\n", int(freeDiskSpace/1024/1024))
+	}
+	
 	// Проверка свободного места на диске
 	if totalDisk > 0 {
-		freeDiskSpace := totalDisk - usedDisk
-		if freeDiskSpace/totalDisk < (1 - diskSpaceLimit) {
-			fmt.Printf("Free disk space is too low: %d Mb left\n", int(freeDiskSpace/1024/1024))
+		freeDiskSpace := (totalDisk - usedDisk) / 1024 / 1024 // Преобразование в МБ
+		if freeDiskSpace < (totalDisk/1024/1024)*(1-diskSpaceLimit) {
+			fmt.Printf("Free disk space is too low: %d Mb left\n", int(freeDiskSpace))
 		}
 	}
 
